@@ -1,13 +1,16 @@
 import React from 'react';
 
-function PropertyCard() {
+function PropertyCard({ image, address, city, zipCode, price, area, bedrooms, isRental }) {
   return (
     <div style={{ border: '1px solid #ccc', padding: '10px', margin: '10px' }}>
-      <img src="https://via.placeholder.com/150" alt="Property" />
-      <h3>123 Main St, City, ZIP</h3>
-      <p>Price: $500,000</p>
-      <p>Area: 2000 sqft</p>
-      <p>Bedrooms: 3</p>
+      <img src={image} alt="Property" style={{ width: '100px', height: '100px' }} />
+      <h3>{address}, {zipCode}</h3>
+      <p>Price: ${price}</p>
+      <p>Area: {area} sqft</p>
+      <p>Bedrooms: {bedrooms}</p>
+      <p>city: {city.name}</p>
+      <p>Region: {city.region.name}</p>
+      <p>Rental: {isRental}</p>
     </div>
   );
 }
