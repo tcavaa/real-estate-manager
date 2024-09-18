@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import API from "../api/api";
 import PropertyCard from "../components/PropertyCard";
+import AgentModal from "../components/AgentModal";
 
 function ListingsPage() {
   const [listings, setListings] = useState([]);
@@ -18,6 +18,33 @@ function ListingsPage() {
   const [isDataFetched, setIsDataFetched] = useState(false); // Track data fetching
 
   const [regions, setRegions] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    const fetchListings = async () => {
+      try {
+        const response = await API.fetchListings();
+
+        setListings(response);
+        setIsDataFetched(true); // Mark data as fetched
+      } catch (error) {
+        console.error("Error fetching listings:", error);
+        setError("Failed to fetch listings.");
+      }
+    };
+    fetchListings();
+  }, []);
+
+  const handleAddAgent = (agentData) => {
+    console.log("Agent Data:", agentData);
+    API.addAgents(
+      agentData.name,
+      agentData.surname,
+      agentData.email,
+      agentData.avatar,
+      agentData.phone
+    );
+  };
 
   // Load filters from localStorage when the component mounts
   useEffect(() => {
@@ -39,26 +66,13 @@ function ListingsPage() {
     }
   }, [priceRange, areaRange, selectedRegions, bedrooms, isDataFetched]);
 
-  useEffect(() => {
-    const fetchListings = async () => {
-      try {
-        const response = await API.fetchListings()
-        
-        setListings(response);
-        setIsDataFetched(true); // Mark data as fetched
-      } catch (error) {
-        console.error("Error fetching listings:", error);
-        setError("Failed to fetch listings.");
-      }
-    };
-    fetchListings();
-  }, []);
+  
 
   useEffect(() => {
     const fetchRegions = async () => {
       try {
-        const response = await API.fetchRegions()
-        
+        const response = await API.fetchRegions();
+
         setRegions(response);
         setIsDataFetched(true); // Mark data as fetched
       } catch (error) {
@@ -143,7 +157,10 @@ function ListingsPage() {
       }
 
       // Filter by region
-      if (selectedRegions.length > 0 && !selectedRegions.includes(listing.city.region.id)) {
+      if (
+        selectedRegions.length > 0 &&
+        !selectedRegions.includes(listing.city.region.id)
+      ) {
         return false;
       }
 
@@ -230,6 +247,15 @@ function ListingsPage() {
       <button onClick={() => validateFilters() && applyFilters()}>
         Apply Filters
       </button>
+
+      <div>
+        <button onClick={() => setIsModalOpen(true)}>Add Agent</button>
+        <AgentModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onSave={handleAddAgent}
+        />
+      </div>
 
       {/* Display Filtered Listings */}
       {filteredListings.map((property) => (

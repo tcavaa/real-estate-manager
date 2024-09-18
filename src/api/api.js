@@ -51,6 +51,33 @@ const API = {
          );
          return response.data 
      },
+     addAgents : async ({ name, surname, email, phone, avatar }) => {
+
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('surname', surname);
+        formData.append('email', email);
+        formData.append('phone', phone);
+        formData.append('avatar', avatar);
+
+        try {
+            const response = await axios.post(
+                'https://api.real-estate-manager.redberryinternship.ge/api/agents',
+                formData,
+                {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'multipart/form-data',
+                    Accept: 'application/json',
+                },
+                }
+            );
+            return response.data;
+            } catch (error) {
+                console.error('Error adding agent:', error);
+                throw error;
+            } 
+     },
     fetchRegions : async () => {
         const response = await axios.get(
              "https://api.real-estate-manager.redberryinternship.ge/api/regions",
