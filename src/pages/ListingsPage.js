@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import API from "../api/api";
 import PropertyCard from "../components/PropertyCard";
 
 function ListingsPage() {
@@ -38,50 +39,33 @@ function ListingsPage() {
     }
   }, [priceRange, areaRange, selectedRegions, bedrooms, isDataFetched]);
 
-  // Fetch listings data from the API
   useEffect(() => {
     const fetchListings = async () => {
       try {
-        const token = "9d08cf6f-bbfd-49d8-85a5-f7a618a36d72";
-        const response = await axios.get(
-          "https://api.real-estate-manager.redberryinternship.ge/api/real-estates",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              accept: "application/json",
-            },
-          }
-        );
-        setListings(response.data);
+        const response = await API.fetchListings()
+        
+        setListings(response);
         setIsDataFetched(true); // Mark data as fetched
       } catch (error) {
         console.error("Error fetching listings:", error);
         setError("Failed to fetch listings.");
       }
     };
-
     fetchListings();
   }, []);
 
-  // Fetch Regions data from the API
   useEffect(() => {
     const fetchRegions = async () => {
       try {
-        const response = await axios.get(
-          "https://api.real-estate-manager.redberryinternship.ge/api/regions",
-          {
-            headers: {
-              accept: "application/json",
-            },
-          }
-        );
-        setRegions(response.data);
+        const response = await API.fetchRegions()
+        
+        setRegions(response);
+        setIsDataFetched(true); // Mark data as fetched
       } catch (error) {
-        console.error("Error fetching Regions:", error);
-        setError("Failed to fetch Regions.");
+        console.error("Error fetching listings:", error);
+        setError("Failed to fetch listings.");
       }
     };
-
     fetchRegions();
   }, []);
 
@@ -221,7 +205,7 @@ function ListingsPage() {
       <div>
         <label>Region:</label>
         {regions.map((region) => (
-          <div key={region.id}> {/* Use region.id as key */}
+          <div key={region.id}>
             <input
               type="checkbox"
               value={region.id}
