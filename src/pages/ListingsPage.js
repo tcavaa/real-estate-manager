@@ -35,17 +35,6 @@ function ListingsPage() {
     fetchListings();
   }, []);
 
-  const handleAddAgent = (agentData) => {
-    console.log("Agent Data:", agentData);
-    API.addAgents(
-      agentData.name,
-      agentData.surname,
-      agentData.email,
-      agentData.avatar,
-      agentData.phone
-    );
-  };
-
   // Load filters from localStorage when the component mounts
   useEffect(() => {
     const storedFilters = JSON.parse(localStorage.getItem("filters"));
@@ -65,8 +54,6 @@ function ListingsPage() {
       applyFilters();
     }
   }, [priceRange, areaRange, selectedRegions, bedrooms, isDataFetched]);
-
-  
 
   useEffect(() => {
     const fetchRegions = async () => {
@@ -253,7 +240,6 @@ function ListingsPage() {
         <AgentModal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
-          onSave={handleAddAgent}
         />
       </div>
 
@@ -261,6 +247,7 @@ function ListingsPage() {
       {filteredListings.map((property) => (
         <PropertyCard
           key={property.id}
+          id={property.id}
           image={property.image}
           address={property.address}
           city={property.city}

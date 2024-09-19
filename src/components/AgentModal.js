@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import API from "../api/api";
 
-function AgentModal({ isOpen, onClose, onSave }) {
+function AgentModal({ isOpen, onClose }) {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
@@ -40,8 +40,7 @@ function AgentModal({ isOpen, onClose, onSave }) {
       });
       console.log("Agent added:", response);
 
-      // Pass the new agent data to the parent component (if needed)
-      onSave(response);
+      
 
       // Close the modal and reset fields
       onClose();
