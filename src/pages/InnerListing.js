@@ -67,7 +67,7 @@ function InnerListing() {
   return (
     <><div className="listing-page">
           <div className="listing-image">
-              <img src="path/to/listing-image.jpg" alt="Listing Picture" />
+              <img src={`${item.image}`} alt="Listing Picture" />
           </div>
 
           <div className="listing-details">
@@ -93,7 +93,7 @@ function InnerListing() {
 
           <div className="agent-info">
               <div className="agent-image">
-                  <img src={`${item.image}`} alt="Agent Picture" />
+                  <img src={`${item.agent.avatar}`} alt="Agent Picture" />
               </div>
               <div className="agent-details">
                   <h3>Agent Name: {item.agent.name}</h3>
