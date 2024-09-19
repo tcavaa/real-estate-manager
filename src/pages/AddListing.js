@@ -17,6 +17,7 @@ function AddListing() {
   const [forSale, setForSale] = useState(0);
   const [agent, setAgent] = useState("");
   const [agents, setAgents] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,29 +30,31 @@ function AddListing() {
 
         const agentsResponse = await API.fetchAgents();
         setAgents(agentsResponse);
-
-        // Load saved form data from local storage
-        const savedData = JSON.parse(localStorage.getItem("addListingForm"));
-        console.log("Saved Data:", savedData); // Debugging line
-
-        if (savedData) {
-          setAddress(savedData.address || "");
-          setSelectedRegion(savedData.selectedRegion || "");
-          setSelectedCity(savedData.selectedCity || "");
-          setPostalCode(savedData.postalCode || "");
-          setPrice(savedData.price || "");
-          setArea(savedData.area || "");
-          setBedrooms(savedData.bedrooms || "");
-          setDescription(savedData.description || "");
-          setForSale(savedData.forSale || "");
-          setAgent(savedData.agent || "");
-        }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
+  }, []);
+
+  useEffect(() => {
+    // Load saved form data from local storage
+    const savedData = JSON.parse(localStorage.getItem("addListingForm"));
+
+    if (savedData) {
+      setAddress(savedData.address || "");
+      setSelectedRegion(savedData.selectedRegion || "");
+      setSelectedCity(savedData.selectedCity || "");
+      setPostalCode(savedData.postalCode || "");
+      setPrice(savedData.price || "");
+      setArea(savedData.area || "");
+      setBedrooms(savedData.bedrooms || "");
+      setDescription(savedData.description || "");
+      setForSale(savedData.forSale || "");
+      setAgent(savedData.agent || "");
+    }
+    setIsLoaded(true);
   }, []);
 
   useEffect(() => {
@@ -68,20 +71,22 @@ function AddListing() {
 
   useEffect(() => {
     // Save form data to local storage whenever any form field changes
-    const formData = {
-      address,
-      selectedRegion,
-      selectedCity,
-      postalCode,
-      price,
-      area,
-      bedrooms,
-      description,
-      forSale,
-      agent,
-    };
-    console.log("Saving Data:", formData); // Debugging line
-    localStorage.setItem("addListingForm", JSON.stringify(formData));
+    if (isLoaded) {
+      const formData = {
+        address,
+        selectedRegion,
+        selectedCity,
+        postalCode,
+        price,
+        area,
+        bedrooms,
+        description,
+        forSale,
+        agent,
+      };
+      console.log("Saving Data:", formData); // Debugging line
+      localStorage.setItem("addListingForm", JSON.stringify(formData));
+    }
   }, [
     address,
     selectedRegion,
@@ -93,6 +98,7 @@ function AddListing() {
     description,
     forSale,
     agent,
+    isLoaded
   ]);
 
   const handleAddressChange = (e) => setAddress(e.target.value);
@@ -265,7 +271,7 @@ function AddListing() {
             <input
               type="radio"
               value="0"
-              checked={forSale === 0}
+              checked={forSale == 0}
               onChange={handleForSaleChange}
             />
             For Sale
@@ -274,7 +280,7 @@ function AddListing() {
             <input
               type="radio"
               value="1"
-              checked={forSale === 1}
+              checked={forSale == 1}
               onChange={handleForSaleChange}
             />
             For Rent

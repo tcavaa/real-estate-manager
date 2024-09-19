@@ -161,6 +161,9 @@ function ListingsPage() {
     setFilteredListings(filtered);
   };
 
+  useEffect(() => {
+    applyFilters();
+  }, [listings, priceRange, areaRange, selectedRegions, bedrooms]);
   return (
     <div>
       <h1>Real Estate Listings</h1>
