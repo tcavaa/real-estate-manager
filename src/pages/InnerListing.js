@@ -30,15 +30,12 @@ function InnerListing() {
       try {
         const response = await API.fetchListing(id);
         setItem(response);
-        
       } catch (error) {
         console.error("Error fetching listings:", error);
       }
     };
     fetchListing();
   }, [id]);
-
-  
 
   if (!item) {
     // Render a loading message or placeholder while the data is being fetched
@@ -47,7 +44,8 @@ function InnerListing() {
 
   // Filter listings to find those with the same region_id as the current item
   const similarListings = listings.filter(
-    (property) => property.city.region.id === item.city.region.id && property.id !== item.id
+    (property) =>
+      property.city.region.id === item.city.region.id && property.id !== item.id
   );
 
   const handleDeleteClick = () => {
@@ -63,70 +61,75 @@ function InnerListing() {
     // Already handled in the DeleteModal component
   };
 
-
   return (
-    <><div className="listing-page">
-          <div className="listing-image">
-              <img src={`${item.image}`} alt="Listing Picture" />
+    <>
+      <div className="listing-page">
+        <div className="listing-image">
+          <img src={`${item.image}`} alt="Listing Picture" />
+        </div>
+
+        <div className="listing-details">
+          <h2>Address: {item.address}</h2>
+          <p>City: {item.city.name}</p>
+          <p>ZIP Code: {item.zip_code}</p>
+
+          <p>Price: {item.price}</p>
+          <p>Area: {item.area}</p>
+          <p>Number of Bedrooms: {item.bedrooms}</p>
+
+          <p>Status: {item.is_rental}</p>
+
+          <div className="listing-description">
+            <h3>Description:</h3>
+            <p>{item.description}</p>
           </div>
 
-          <div className="listing-details">
-              <h2>Address: {item.address}</h2>
-              <p>City: {item.city.name}</p>
-              <p>ZIP Code: {item.zip_code}</p>
+          <p>Date of Publication: {item.created_at}</p>
+        </div>
 
-              <p>Price: {item.price}</p>
-              <p>Area: {item.area}</p>
-              <p>Number of Bedrooms: {item.bedrooms}</p>
-
-              <p>Status: {item.is_rental}</p>
-
-              <div className="listing-description">
-                  <h3>Description:</h3>
-                  <p>
-                      {item.description}
-                  </p>
-              </div>
-
-              <p>Date of Publication: {item.created_at}</p>
+        <div className="agent-info">
+          <div className="agent-image">
+            <img src={`${item.agent.avatar}`} alt="Agent Picture" />
           </div>
-
-          <div className="agent-info">
-              <div className="agent-image">
-                  <img src={`${item.agent.avatar}`} alt="Agent Picture" />
-              </div>
-              <div className="agent-details">
-                  <h3>Agent Name: {item.agent.name}</h3>
-                  <p>Email: {item.agent.email}</p>
-                  <p>Mobile Number: {item.agent.phone}</p>
-              </div>
-              <div> <button onClick={handleDeleteClick}>Delete Listing</button></div>
-              <DeleteModal
-                    isOpen={isModalOpen}
-                    onRequestClose={handleModalClose}
-                    onConfirm={handleDeleteConfirm}
-                    id={item.id}
-                />
+          <div className="agent-details">
+            <h3>Agent Name: {item.agent.name}</h3>
+            <p>Email: {item.agent.email}</p>
+            <p>Mobile Number: {item.agent.phone}</p>
           </div>
-      </div><div>Simmilar Listings
-              {similarListings.length > 0 ? (
-              similarListings.map((property) => (
-                  <PropertyCard
-                      key={property.id}
-                      id={property.id}
-                      image={property.image}
-                      address={property.address}
-                      city={property.city}
-                      zipCode={property.zip_code}
-                      price={property.price}
-                      area={property.area}
-                      bedrooms={property.bedrooms}
-                      isRental={property.is_rental} />
-                ))
-            ) : (
-                <p>No similar listings available.</p>
-              )}
-          </div></>
+          <div>
+            {" "}
+            <button onClick={handleDeleteClick}>Delete Listing</button>
+          </div>
+          <DeleteModal
+            isOpen={isModalOpen}
+            onRequestClose={handleModalClose}
+            onConfirm={handleDeleteConfirm}
+            id={item.id}
+          />
+        </div>
+      </div>
+      <div>
+        Simmilar Listings
+        {similarListings.length > 0 ? (
+          similarListings.map((property) => (
+            <PropertyCard
+              key={property.id}
+              id={property.id}
+              image={property.image}
+              address={property.address}
+              city={property.city}
+              zipCode={property.zip_code}
+              price={property.price}
+              area={property.area}
+              bedrooms={property.bedrooms}
+              isRental={property.is_rental}
+            />
+          ))
+        ) : (
+          <p>No similar listings available.</p>
+        )}
+      </div>
+    </>
   );
 }
 

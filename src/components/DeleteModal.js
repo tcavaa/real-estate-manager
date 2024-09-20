@@ -1,26 +1,25 @@
-import React from 'react';
-import Modal from 'react-modal';
-import { useNavigate } from 'react-router-dom';
-import API from '../api/api';
+import React from "react";
+import Modal from "react-modal";
+import { useNavigate } from "react-router-dom";
+import API from "../api/api";
 
-Modal.setAppElement('#root'); // This is important for accessibility
+Modal.setAppElement("#root"); // This is important for accessibility
 
 const DeleteModal = ({ isOpen, onRequestClose, onConfirm, id }) => {
   const navigate = useNavigate();
 
   const handleConfirm = async () => {
     try {
-     console.log(id);
+      console.log(id);
       await API.deleteListing(id); // Replace with actual delete API call
       onConfirm(); // Notify parent to handle redirect or other actions
-      navigate('/'); // Redirect to the home page after deletion
+      navigate("/"); // Redirect to the home page after deletion
     } catch (error) {
-      console.error('Error deleting listing:', error);
+      console.error("Error deleting listing:", error);
     }
   };
 
   return (
-    
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}

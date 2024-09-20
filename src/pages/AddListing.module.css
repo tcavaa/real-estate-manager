@@ -1,0 +1,173 @@
+/* General styles for the form container */
+
+.listingadd_form {
+    width: 790px;
+    margin: 61px auto;
+    padding-bottom:100px;
+  }
+  
+  /* Heading */
+  .listingadd_heading {
+    text-align: center;
+    font-size: 32px;
+    margin-top: 65px;
+    font-weight: bold;
+    color: #021526;
+  }
+  .listingadd_isrental {
+    font-size: 16px;
+    font-weight: bold;
+    color:#1A1A1F;
+    display:block;
+    margin-bottom:8px;
+  }
+  /* Radio buttons styling */
+  .inputradio {
+    margin-bottom:60px;
+  }
+  .inputradio label.radios {
+    margin:28px 60px 0 0;
+  }
+  .inputradio label input[type="radio"] {
+    margin-right: 5px;
+    accent-color: #1A1A1F;
+    
+  } 
+  .formHeadings {
+    color:#1A1A1F;
+    font-size:16px;
+    font-weight: bold;
+  }
+  .formHeadings2 {
+    color:#1A1A1F;
+    font-size:16px;
+    font-weight: bold;
+    margin-top:90px;
+  }
+  .formlabels {
+    font-size:14px;
+    font-weight: bold;
+    color:#021526;
+    padding-bottom:15px;
+  }
+  .location {
+    display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 790px; /* Ensure that the total width is respected */
+  margin: 0 auto;
+  }
+  .formGroups {
+    width:385px;
+    margin-top:10px;
+  }
+  .formGroups input, .formGroups select  {
+    margin-top:5px;
+  }
+  .formGroups p {
+    padding:0;
+    margin:0;
+    font-size:12px;
+  }
+  .description {
+    margin-top:15px;
+  }
+  .description textarea{
+    margin-top:8px;
+  }
+  .description p {
+    padding:0;
+    margin:0;
+    font-size:12px;
+  }
+  .fileUpload {
+    margin-top:15px;
+  }
+  .fileUpload input[type="file"] {
+    margin-top:15px;
+    border:1px dashed #2D3648;
+    width: 100%;
+    height:120px;
+    border-radius: 6px;
+    padding: 12px;
+    box-sizing: border-box;
+  }
+  /* Input fields and select dropdowns */
+  .listingadd_form input[type="text"], .listingadd_form textarea, .listingadd_form select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #808A93;
+    border-radius: 6px;
+    font-size: 16px;
+    box-sizing: border-box;
+  }
+  
+  /* Textarea adjustments */
+  .listingadd_form textarea {
+    height: 120px;
+    resize: vertical;
+  }
+  
+ .formButtons {
+  float:right;
+  display:flex;
+  width:313px;
+  justify-content: space-between;
+  margin-top:-35px;
+ }
+  
+  /* Buttons */
+  .listingadd_form button[type="reset"] {
+    background-color: #fff;
+    color: #F93B1D;
+    padding: 10px 16px;
+    font-size: 16px;
+    border: 1px solid #F93B1D;
+    border-radius: 10px;
+    cursor: pointer;
+    display: block;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+  }
+  
+  /* Button hover effect */
+  .listingadd_form button[type="reset"]:hover {
+    background-color: #ff3333;
+    color: #fff;
+  }
+
+  /* Buttons */
+  .listingadd_form button[type="submit"] {
+    background-color: #F93B1D;
+    color: #fff;
+    padding: 10px 16px;
+    font-size: 16px;
+    border: 1px solid #F93B1D ;
+    border-radius: 10px;
+    cursor: pointer;
+    display: block;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+  }
+  
+  /* Button hover effect */
+  .listingadd_form button[type="submit"]:hover {
+    background-color: #fff;
+    color:#F93B1D;
+  }
+  .invalid {
+    border:1px solid red !important;
+  }
+  
+  .valid {
+    border-color: green !important;
+  }
+  .invalidp {
+    color:red !important;
+  }
+  .validp {
+    color: green !important;
+  }
+  

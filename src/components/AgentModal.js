@@ -40,8 +40,6 @@ function AgentModal({ isOpen, onClose }) {
       });
       console.log("Agent added:", response);
 
-      
-
       // Close the modal and reset fields
       onClose();
       setName("");
