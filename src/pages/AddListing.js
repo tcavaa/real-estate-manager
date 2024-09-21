@@ -277,7 +277,7 @@ function AddListing() {
             <input
               type="radio"
               value="0"
-              checked={forSale == 0}
+              checked={forSale === 0}
               onChange={handleForSaleChange}
             />
             იყიდება
@@ -286,7 +286,7 @@ function AddListing() {
             <input
               type="radio"
               value="1"
-              checked={forSale == 1}
+              checked={forSale === 1}
               onChange={handleForSaleChange}
             />
             ქირავდება
@@ -358,7 +358,7 @@ function AddListing() {
               onChange={handleRegionChange}
               required
               className={`${
-                selectedRegion == ""
+                selectedRegion === ""
                   ? ""
                   : selectedRegion
                   ? styles.valid

@@ -7,7 +7,7 @@ function Navigation() {
     <nav>
       <div className={styles.insideNav}>
         <Link to="/">
-          <img className={styles.logo} src={logo} />
+          <img className={styles.logo} src={logo} alt="Logo" />
         </Link>
       </div>
     </nav>

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import API from "../api/api";
-import Slider from 'react-slick';
-import "slick-carousel/slick/slick.css"; 
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import PropertyCard from "../components/PropertyCard";
 import DeleteModal from "../components/DeleteModal";
@@ -20,8 +20,6 @@ function InnerListing() {
   const [item, setItem] = useState(null);
   const [listings, setListings] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const navigate = useNavigate();
 
   const settings = {
     dots: true, // Shows dots below the carousel
@@ -106,7 +104,7 @@ function InnerListing() {
     year: "2-digit",
   });
   let isRental = "";
-  if (item.is_rental == 0) {
+  if (item.is_rental === 0) {
     isRental = "იყიდება";
   } else {
     isRental = "ქირავდება";
@@ -116,11 +114,11 @@ function InnerListing() {
     <>
       <div className={styles.innerPageContainer}>
         <Link to="/">
-          <img src={Backi} />
+          <img src={Backi} alt="Back Icon" />
         </Link>
         <div className={styles.innerCont}>
           <div className={styles.innerListingPicture}>
-            <img src={`${item.image}`} />
+            <img src={`${item.image}`} alt="Property" />
             <span>{isRental}</span>
             <p>გამოქვეყნების თარიღი {formattedDate}</p>
           </div>
@@ -128,24 +126,25 @@ function InnerListing() {
           <div className={styles.listingDetails}>
             <h1>{item.price} ₾</h1>
             <p>
-              <img src={Locationi} /> {item.city.name} {item.address}
+              <img src={Locationi} alt="Location Icon" /> {item.city.name}{" "}
+              {item.address}
             </p>
             <p>
-              <img src={Areai} />
+              <img src={Areai} alt="Area Icon" />
               ფართი {item.area} მ<sup>2</sup>
             </p>
             <p>
-              <img src={Bedroomi} />
+              <img src={Bedroomi} alt="Bedroom Icon" />
               საძინებელი {item.bedrooms}
             </p>
             <p>
-              <img src={Postali} />
+              <img src={Postali} alt="Postal Icon" />
               საფოსტო ინდექსი {item.zip_code}
             </p>
             <p className={styles.itemDesc}>{item.description}</p>
             <div className={styles.agentinfo}>
               <div className={styles.agentImage}>
-                <img src={`${item.agent.avatar}`} alt="Agent Picture" />
+                <img src={`${item.agent.avatar}`} alt="Agent" />
                 <div>
                   <h3>
                     {item.agent.name} {item.agent.surname}
@@ -155,11 +154,11 @@ function InnerListing() {
               </div>
               <div className={styles.agentDets}>
                 <p>
-                  <img src={Maili} />
+                  <img src={Maili} alt="Mail Icon" />
                   {item.agent.email}
                 </p>
                 <p>
-                  <img src={Phonei} />
+                  <img src={Phonei} alt="Phone icon" />
                   {item.agent.phone}
                 </p>
               </div>
@@ -182,20 +181,20 @@ function InnerListing() {
         <h2>ბინები მსგავს ლოკაციაზე</h2>
         {similarListings.length > 0 ? (
           <Slider {...settings}>
-          {similarListings.map((property) => (
-            <PropertyCard
-              key={property.id}
-              id={property.id}
-              image={property.image}
-              address={property.address}
-              city={property.city}
-              zipCode={property.zip_code}
-              price={property.price}
-              area={property.area}
-              bedrooms={property.bedrooms}
-              isRental={property.is_rental}
-            />
-          ))}
+            {similarListings.map((property) => (
+              <PropertyCard
+                key={property.id}
+                id={property.id}
+                image={property.image}
+                address={property.address}
+                city={property.city}
+                zipCode={property.zip_code}
+                price={property.price}
+                area={property.area}
+                bedrooms={property.bedrooms}
+                isRental={property.is_rental}
+              />
+            ))}
           </Slider>
         ) : (
           <p>მსგავს ლოკაციაზე ბინები ვერ მოიძებნა.</p>

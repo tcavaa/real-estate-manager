@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import API from "../api/api";
 import PropertyCard from "../components/PropertyCard";
@@ -47,15 +47,6 @@ function ListingsPage() {
       setBedrooms(storedFilters.bedrooms || "");
     }
   }, []);
-
-  // Save filters to localStorage whenever they change
-  useEffect(() => {
-    if (isDataFetched) {
-      const filters = { priceRange, areaRange, selectedRegions, bedrooms };
-      localStorage.setItem("filters", JSON.stringify(filters));
-      applyFilters();
-    }
-  }, [priceRange, areaRange, selectedRegions, bedrooms, isDataFetched]);
 
   useEffect(() => {
     const fetchRegions = async () => {
@@ -121,7 +112,7 @@ function ListingsPage() {
   };
 
   // Apply filters to listings
-  const applyFilters = () => {
+  const applyFilters = useCallback(() => {
     const filtered = listings.filter((listing) => {
       // Filter by price range
       if (
@@ -161,11 +152,26 @@ function ListingsPage() {
       return true;
     });
     setFilteredListings(filtered);
-  };
+  }, [listings, priceRange, areaRange, selectedRegions, bedrooms]);
+  // Save filters to localStorage whenever they change
+  useEffect(() => {
+    if (isDataFetched) {
+      const filters = { priceRange, areaRange, selectedRegions, bedrooms };
+      localStorage.setItem("filters", JSON.stringify(filters));
+      applyFilters();
+    }
+  }, [
+    priceRange,
+    areaRange,
+    selectedRegions,
+    bedrooms,
+    isDataFetched,
+    applyFilters,
+  ]);
 
   useEffect(() => {
     applyFilters();
-  }, [listings, priceRange, areaRange, selectedRegions, bedrooms]);
+  }, [listings, priceRange, areaRange, selectedRegions, bedrooms, applyFilters]);
 
   const handleAddClick = () => {
     setIsModalOpen(true);
@@ -381,7 +387,7 @@ function ListingsPage() {
         )}
       </div>
       <div className={styles.content}>
-        {filteredListings.length != 0 ? (
+        {filteredListings.length !== 0 ? (
           filteredListings.map((property) => (
             <PropertyCard
               key={property.id}

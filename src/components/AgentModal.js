@@ -11,7 +11,6 @@ function AgentModal({ isOpen, onRequestClose, onConfirm }) {
   const [email, setEmail] = useState("");
   const [avatar, setAvatar] = useState(null);
   const [phone, setPhone] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
   const [isNameValid, setIsNameValid] = useState();
   const [isSurnameValid, setIsSurnameValid] = useState();
   const [isEmailValid, setIsEmailValid] = useState();
@@ -63,14 +62,12 @@ function AgentModal({ isOpen, onRequestClose, onConfirm }) {
     e.preventDefault();
     const error = validateFields();
     if (error) {
-      setErrorMessage(error);
       return;
     }
-    setErrorMessage("");
 
     try {
       // Call the API to add the agent
-      const response = await API.addAgents({
+      await API.addAgents({
         name,
         surname,
         email,
@@ -90,9 +87,7 @@ function AgentModal({ isOpen, onRequestClose, onConfirm }) {
       setIsEmailValid();
       setIsPhoneValid();
       setIsAvatarValid();
-    } catch (error) {
-      setErrorMessage("Failed to add agent. Please try again.");
-    }
+    } catch (error) {}
   };
 
   // Handle file upload

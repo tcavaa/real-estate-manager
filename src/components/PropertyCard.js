@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./PropertyCard.module.css";
-import Backi from "../icons/back.png";
 import Areai from "../icons/area.png";
 import Bedroomi from "../icons/bedroom.png";
 import Locationi from "../icons/location.png";
@@ -19,7 +18,7 @@ function PropertyCard({
   isRental,
 }) {
   let rentalProberty = "";
-  if (isRental == 0) {
+  if (isRental === 0) {
     rentalProberty = "იყიდება";
   } else {
     rentalProberty = "ქირავდება";
@@ -34,14 +33,20 @@ function PropertyCard({
         <div className={styles.cardBoxBottom}>
           <h2>{price} ₾</h2>
           <p className={styles.cardBoxLoc}>
-            <img src={Locationi} />{city.name}, {address}
+            <img src={Locationi} alt="Location Icon" />
+            {city.name}, {address}
           </p>
           <div className={styles.cardBoxDets}>
-            <p><img src={Bedroomi} />{bedrooms}</p>
             <p>
-            <img src={Areai} /> {area} მ<sup>2</sup>
+              <img src={Bedroomi} alt="Bed Icon" />
+              {bedrooms}
             </p>
-            <p><img src={Postali} /> {zipCode}</p>
+            <p>
+              <img src={Areai} alt="Area Icon" /> {area} მ<sup>2</sup>
+            </p>
+            <p>
+              <img src={Postali} alt="Postal Icon" /> {zipCode}
+            </p>
           </div>
         </div>
       </div>
