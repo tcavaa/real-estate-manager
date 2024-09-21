@@ -198,6 +198,13 @@ function ListingsPage() {
     setBedrooms("");
   };
 
+  const handleClearAllFilters = () => {
+    setBedrooms("");
+    setAreaRange({ min: "", max: "" });
+    setPriceRange({ min: "", max: "" });
+    setSelectedRegions([]);
+  };
+
   return (
     <div>
       {error && <p style={{ color: "red" }}>{error}</p>}
@@ -350,16 +357,28 @@ function ListingsPage() {
           </div>
         ) : null}
         {areaRange.min || areaRange.max ? (
-        <div>
-          {areaRange.min} მ<sup>2</sup> - {areaRange.max} მ<sup>2</sup>{" "}
-          <button onClick={handleRemoveAreaRange}>X</button>
-        </div>
-         ) : null}
-         {bedrooms ? (
-        <div>
-          {bedrooms} <button onClick={handleRemoveBedrooms}>X</button>
-        </div>
-      ) : null}
+          <div>
+            {areaRange.min} მ<sup>2</sup> - {areaRange.max} მ<sup>2</sup>{" "}
+            <button onClick={handleRemoveAreaRange}>X</button>
+          </div>
+        ) : null}
+        {bedrooms ? (
+          <div>
+            {bedrooms} <button onClick={handleRemoveBedrooms}>X</button>
+          </div>
+        ) : null}
+        {(priceRange.min ||
+          priceRange.max ||
+          areaRange.min ||
+          areaRange.max ||
+          bedrooms) && (
+          <button
+            className={styles.clearAllbutton}
+            onClick={handleClearAllFilters}
+          >
+            გასუფთავება
+          </button>
+        )}
       </div>
       <div className={styles.content}>
         {filteredListings.length != 0 ? (

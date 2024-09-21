@@ -156,6 +156,12 @@
   width:690px;
   height:20px;
 }
+.clearAllbutton{
+  border:none;
+  background:none;
+  color:#021526;
+  font-size:14px;
+}
 
 /* Common styles for each filter dropdown */
 .filterDropdown {

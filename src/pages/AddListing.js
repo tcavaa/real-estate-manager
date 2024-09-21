@@ -119,7 +119,23 @@ function AddListing() {
       setIsAddressValid(false); // Set false if less than 2
     }
   };
-  const handleImageChange = (e) => setImage(e.target.files[0]);
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    // Check file size (1MB limit)
+    if (file.size > 1048576) {
+      alert("File size cannot exceed 1MB.");
+      return;
+    }
+
+    // Check file type (only images)
+    const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
+    if (!allowedTypes.includes(file.type)) {
+      alert("Only image files (JPEG, PNG, GIF) are allowed.");
+      return;
+    }
+
+    setImage(file);
+  };
   const handleRegionChange = (e) => setSelectedRegion(e.target.value);
   const handleCityChange = (e) => setSelectedCity(e.target.value);
   const handlePostalCodeChange = (e) => {
@@ -242,7 +258,7 @@ function AddListing() {
       console.log(response);
       const redirectUrl = `/listing/${response.id}`; // Assuming the ID is a string
       navigate(redirectUrl);
-      
+
       localStorage.removeItem("addListingForm"); // Clear saved form data
       // Optionally redirect or clear form
     } catch (error) {
@@ -251,8 +267,6 @@ function AddListing() {
     }
   };
 
-  
-  
   return (
     <div>
       <h1 className={styles.listingadd_heading}>ლისტინგის დამატება</h1>
@@ -288,10 +302,22 @@ function AddListing() {
               onChange={handleAddressChange}
               required
               minLength="2"
-              className={`${isAddressValid === undefined ? '' : isAddressValid ? styles.valid : styles.invalid}`}
+              className={`${
+                isAddressValid === undefined
+                  ? ""
+                  : isAddressValid
+                  ? styles.valid
+                  : styles.invalid
+              }`}
             />
             <p
-              className={`${isAddressValid === undefined ? '' : isAddressValid ? styles.validp : styles.invalidp}`}
+              className={`${
+                isAddressValid === undefined
+                  ? ""
+                  : isAddressValid
+                  ? styles.validp
+                  : styles.invalidp
+              }`}
             >
               ✔️ მინიმუმ ორი სიმბოლო
             </p>
@@ -304,11 +330,21 @@ function AddListing() {
               onChange={handlePostalCodeChange}
               required
               pattern="\d+"
-              className={`${isPostalCodeValid === undefined ? '' : isPostalCodeValid ? styles.valid : styles.invalid}`}
+              className={`${
+                isPostalCodeValid === undefined
+                  ? ""
+                  : isPostalCodeValid
+                  ? styles.valid
+                  : styles.invalid
+              }`}
             />
             <p
               className={`${
-                isPostalCodeValid === undefined ? '' : isPostalCodeValid ? styles.validp : styles.invalidp
+                isPostalCodeValid === undefined
+                  ? ""
+                  : isPostalCodeValid
+                  ? styles.validp
+                  : styles.invalidp
               }`}
             >
               ✔️ მხოლოდ რიცხვები
@@ -321,7 +357,13 @@ function AddListing() {
               value={selectedRegion}
               onChange={handleRegionChange}
               required
-              className={`${selectedRegion == '' ? '' : selectedRegion ? styles.valid : styles.invalid}`}
+              className={`${
+                selectedRegion == ""
+                  ? ""
+                  : selectedRegion
+                  ? styles.valid
+                  : styles.invalid
+              }`}
             >
               <option value="">აირჩიე რეგიონი</option>
               {regions.map((region) => (
@@ -361,9 +403,23 @@ function AddListing() {
               onChange={handlePriceChange}
               required
               pattern="\d+"
-              className={`${isPriceValid === undefined ? '' : isPriceValid ? styles.valid : styles.invalid}`}
+              className={`${
+                isPriceValid === undefined
+                  ? ""
+                  : isPriceValid
+                  ? styles.valid
+                  : styles.invalid
+              }`}
             />
-            <p className={`${isPriceValid === undefined ? '' : isPriceValid ? styles.validp : styles.invalidp}`}>
+            <p
+              className={`${
+                isPriceValid === undefined
+                  ? ""
+                  : isPriceValid
+                  ? styles.validp
+                  : styles.invalidp
+              }`}
+            >
               ✔️ მხოლოდ რიცხვები
             </p>
           </div>
@@ -376,9 +432,23 @@ function AddListing() {
               onChange={handleAreaChange}
               required
               pattern="\d+"
-              className={`${isAreaValid === undefined ? '' : isAreaValid ? styles.valid : styles.invalid}`}
+              className={`${
+                isAreaValid === undefined
+                  ? ""
+                  : isAreaValid
+                  ? styles.valid
+                  : styles.invalid
+              }`}
             />
-            <p className={`${isAreaValid === undefined ? '' : isAreaValid ? styles.validp : styles.invalidp}`}>
+            <p
+              className={`${
+                isAreaValid === undefined
+                  ? ""
+                  : isAreaValid
+                  ? styles.validp
+                  : styles.invalidp
+              }`}
+            >
               ✔️ მხოლოდ რიცხვები
             </p>
           </div>
@@ -391,10 +461,22 @@ function AddListing() {
               onChange={handleBedroomsChange}
               required
               pattern="\d+"
-              className={`${isBedroomsValid === undefined ? '' : isBedroomsValid ? styles.valid : styles.invalid}`}
+              className={`${
+                isBedroomsValid === undefined
+                  ? ""
+                  : isBedroomsValid
+                  ? styles.valid
+                  : styles.invalid
+              }`}
             />
             <p
-              className={`${isBedroomsValid === undefined ? '' : isBedroomsValid ? styles.validp : styles.invalidp}`}
+              className={`${
+                isBedroomsValid === undefined
+                  ? ""
+                  : isBedroomsValid
+                  ? styles.validp
+                  : styles.invalidp
+              }`}
             >
               ✔️ მხოლოდ რიცხვები
             </p>
@@ -407,9 +489,23 @@ function AddListing() {
             onChange={handleDescriptionChange}
             required
             minLength="5"
-            className={`${isDescValid === undefined ? '' : isDescValid ? styles.valid : styles.invalid}`}
+            className={`${
+              isDescValid === undefined
+                ? ""
+                : isDescValid
+                ? styles.valid
+                : styles.invalid
+            }`}
           />
-          <p className={`${isDescValid === undefined ? '' : isDescValid ? styles.validp : styles.invalidp}`}>
+          <p
+            className={`${
+              isDescValid === undefined
+                ? ""
+                : isDescValid
+                ? styles.validp
+                : styles.invalidp
+            }`}
+          >
             ✔️ მინიმუმ ხუთი სიტყვა
           </p>
         </div>
@@ -426,7 +522,7 @@ function AddListing() {
           <h2 className={styles.formHeadings2}>აგენტი</h2>
           <p className={styles.formlabels}>აირჩიე</p>
           <select value={agent} onChange={handleAgentChange} required>
-          <option value="">აირჩიე აგენტი</option>
+            <option value="">აირჩიე აგენტი</option>
             {agents.map((agent) => (
               <option key={agent.id} value={agent.id}>
                 {agent.name}
