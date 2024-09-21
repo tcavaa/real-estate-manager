@@ -8,9 +8,9 @@ import Backi from "../icons/back.png";
 import Areai from "../icons/area.png";
 import Bedroomi from "../icons/bedroom.png";
 import Locationi from "../icons/location.png";
+import Postali from "../icons/postal.png";
 import Maili from "../icons/mail.png";
 import Phonei from "../icons/phone.png";
-import Postali from "../icons/postal.png";
 
 function InnerListing() {
   const { id } = useParams();
@@ -149,7 +149,7 @@ function InnerListing() {
           </div>
         </div>
       </div>
-      <div>
+      <div className={styles.carruselDiv}>
         <h2>ბინები მსგავს ლოკაციაზე</h2>
         {similarListings.length > 0 ? (
           similarListings.map((property) => (

@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import logo from "../logo.png";
-import styles from "./Navigation.module.css"
+import styles from "./Navigation.module.css";
 
 function Navigation() {
+  
   return (
     <nav>
       <div className={styles.insideNav}>

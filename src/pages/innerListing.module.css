@@ -1,6 +1,6 @@
 
 div.innerPageContainer {
-    width:1920px;
+    width:1591px;
     margin: 70px auto;
 }
 .innerCont {
@@ -112,4 +112,15 @@ div.innerPageContainer {
     background-color:#676E76;
     color:white;
     transition: ease 0.3s;
+}
+.carruselDiv {
+    width:1591px;
+    margin:0 auto;
+}
+.carruselDiv h2 {
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 38.4px;
+    text-align: left;
+    padding-bottom:52px;
 }
