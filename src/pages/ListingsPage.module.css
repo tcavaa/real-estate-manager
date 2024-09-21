@@ -2,7 +2,78 @@
     width:1591px;
     margin:0 auto;
 }
+.chosenFilters {
+  width:1591px;
+    margin:0 auto 20px auto;
+    display: flex;
+    justify-content: flex-start;
+    gap:4px;
+}
+.chosenFilters div {
+  border:1px solid #DBDBDB;
+  color:#021526CC;
+  padding:6px 10px;
+  border-radius: 43px;
+}
+.chosenFilters button{
+  background:none;
+  border:none;
+  cursor: pointer;
+}
 /* Buttons */
+.applyFilt {
+  background-color: #F93B1D;
+    color: #fff;
+    padding: 8px 14px;
+    font-size: 14px;
+    border: 1px solid #F93B1D ;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 150px;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Button hover effect */
+  .applyFilt:hover {
+    background-color: #fff;
+    color:#F93B1D;
+  }
+  .applyFilt2 {
+    background-color: #F93B1D;
+      color: #fff;
+      padding: 8px 14px;
+      font-size: 14px;
+      border: 1px solid #F93B1D ;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 90px;
+      margin-left:110px;
+      transition: background-color 0.3s ease;
+    }
+    
+    /* Button hover effect */
+    .applyFilt2:hover {
+      background-color: #fff;
+      color:#F93B1D;
+    }
+    .applyFilt3 {
+      background-color: #F93B1D;
+        color: #fff;
+        padding: 8px 14px;
+        font-size: 14px;
+        border: 1px solid #F93B1D ;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-top: 20px;
+        margin-left:250px;
+        transition: background-color 0.3s ease;
+      }
+      
+      /* Button hover effect */
+      .applyFilt3:hover {
+        background-color: #fff;
+        color:#F93B1D;
+      }
 .agentAdd {
     background-color: #fff;
     color: #F93B1D;
@@ -46,3 +117,156 @@
   .noTextDecoration {
     text-decoration: none;
   }
+  .noPropertiesFound {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    color: #021526CC;
+  }
+  .topContainer {
+    width:1596px;
+    margin:77px auto 20px auto;
+    display: flex;
+    justify-content: space-between;
+  }
+  .topContainerButtons {
+    display: flex;
+    justify-content: space-between;
+    gap:15px;
+    margin-top:-15px;
+  }
+  .checkBoxRegions{
+    display:flex;
+    float: left;
+    width:200px;
+  }
+  .checkBoxRegions label{
+    color:#021526 !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    line-height: 16.8px !important;
+  }
+  /* Container for the entire filter section */
+.filterContainer {
+  display: flex;
+  gap: 15px; /* Add spacing between filters */
+  border-radius: 10px;
+  border:1px solid #DBDBDB;
+  padding:12px;
+  width:690px;
+  height:20px;
+}
+
+/* Common styles for each filter dropdown */
+.filterDropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Style the dropdown button (the filter title) */
+.filterDropdown label {
+  cursor: pointer;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+.filterDropdownContent input{
+  width:30px !important;
+}
+.filterDropdown label.topLabels:hover {
+  background-color:#F3F3F3;
+}
+.filterDropdownContent2 input {
+  margin-top:1px;
+  width:50px;
+  height:30px;
+  display:block;
+}
+
+/* Style the dropdown content (hidden by default) */
+.filterDropdownContent {
+  display: none; /* Hidden by default */
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  border-radius:10px;
+  padding: 24px;
+  margin-top: 10px;
+  width:683px;
+}
+.filterDropdownContent2 {
+  display: none; /* Hidden by default */
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  border-radius:10px;
+  padding: 24px;
+  margin-top: 10px;
+  width:180px;
+  height:150px;
+}
+.filterDropdownContent3 {
+  display: none; /* Hidden by default */
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  border-radius:10px;
+  padding: 24px;
+  margin-top: 10px;
+  width:340px;
+  height:140px;
+}
+.filterDropdownContent3 input {
+  width:135px;
+  margin-right:10px;
+  border-radius: 6px;
+  padding:10px;
+}
+
+/* Show the dropdown content when the user clicks on the label */
+.filterDropdown:hover .filterDropdownContent {
+  display: block;
+}
+.filterDropdown:hover .filterDropdownContent2 {
+  display: block;
+}
+.filterDropdown:hover .filterDropdownContent3 {
+  display: block;
+}
+
+/* Input styling inside the dropdown */
+.filterDropdownContent input {
+  display: block;
+  margin: 5px 0;
+  width: 100px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.apply-btn {
+  display: block;
+  background-color: #e50000;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-top: 10px;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* Region checkboxes styling */
+.region-checkboxes {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.region-checkboxes label {
+  margin-left: 5px;
+}

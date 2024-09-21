@@ -105,7 +105,7 @@ function ListingsPage() {
       priceRange.max &&
       parseInt(priceRange.min) > parseInt(priceRange.max)
     ) {
-      setValidationMessage("Please enter valid numbers for price range.");
+      setValidationMessage("რეინჯი შეიყვანეთ სწორად.");
       return false;
     }
     if (
@@ -113,7 +113,7 @@ function ListingsPage() {
       areaRange.max &&
       parseInt(areaRange.min) > parseInt(areaRange.max)
     ) {
-      setValidationMessage("Please enter valid numbers for area range.");
+      setValidationMessage("რეინჯი შეიყვანეთ სწორად");
       return false;
     }
     setValidationMessage("");
@@ -179,104 +179,209 @@ function ListingsPage() {
     setIsModalOpen(false);
     // Already handled in the DeleteModal component
   };
+  const handleRemoveRegion = (id) => {
+    setSelectedRegions((prevSelectedRegions) =>
+      prevSelectedRegions.filter((regionId) => regionId !== id)
+    );
+  };
+  const handleRemovePriceRange = () => {
+    setPriceRange({ min: "", max: "" });
+  };
+
+  // Handler to remove the area range filter
+  const handleRemoveAreaRange = () => {
+    setAreaRange({ min: "", max: "" });
+  };
+
+  // Handler to remove the bedrooms filter
+  const handleRemoveBedrooms = () => {
+    setBedrooms("");
+  };
+
   return (
     <div>
       {error && <p style={{ color: "red" }}>{error}</p>}
-      {validationMessage && <p style={{ color: "red" }}>{validationMessage}</p>}
 
-      {/* Price Range */}
-      <div>
-        <label>Price Range:</label>
-        <input
-          type="number"
-          name="min"
-          placeholder="Min"
-          value={priceRange.min}
-          onChange={handlePriceChange}
-        />
-        <input
-          type="number"
-          name="max"
-          placeholder="Max"
-          value={priceRange.max}
-          onChange={handlePriceChange}
-        />
-      </div>
-
-      {/* Area Range */}
-      <div>
-        <label>Area Range:</label>
-        <input
-          type="number"
-          name="min"
-          placeholder="Min"
-          value={areaRange.min}
-          onChange={handleAreaChange}
-        />
-        <input
-          type="number"
-          name="max"
-          placeholder="Max"
-          value={areaRange.max}
-          onChange={handleAreaChange}
-        />
-      </div>
-
-      {/* Region */}
-      <div>
-        <label>Region:</label>
-        {regions.map((region) => (
-          <div key={region.id}>
-            <input
-              type="checkbox"
-              value={region.id}
-              checked={selectedRegions.includes(region.id)}
-              onChange={handleRegionChange}
-            />
-            <label>{region.name}</label>
+      <div className={styles.topContainer}>
+        <div className={styles.filterContainer}>
+          {/* Region */}
+          <div className={styles.filterDropdown}>
+            <label className={styles.topLabels}>რეგიონი</label>
+            <div className={styles.filterDropdownContent}>
+              {regions.map((region) => (
+                <div className={styles.checkBoxRegions} key={region.id}>
+                  <input
+                    type="checkbox"
+                    value={region.id}
+                    checked={selectedRegions.includes(region.id)}
+                    onChange={handleRegionChange}
+                  />
+                  <label>{region.name}</label>
+                </div>
+              ))}
+              <button
+                className={styles.applyFilt}
+                onClick={() => validateFilters() && applyFilters()}
+              >
+                არჩევა
+              </button>
+            </div>
           </div>
-        ))}
-      </div>
+          {/* Price Range */}
+          <div className={styles.filterDropdown}>
+            <label>საფასო კატეგორია</label>
+            <div className={styles.filterDropdownContent3}>
+              <input
+                type="number"
+                name="min"
+                placeholder="Min"
+                value={priceRange.min}
+                onChange={handlePriceChange}
+              />
+              <input
+                type="number"
+                name="max"
+                placeholder="Max"
+                value={priceRange.max}
+                onChange={handlePriceChange}
+              />
+              {validationMessage && (
+                <p style={{ color: "red" }}>{validationMessage}</p>
+              )}
+              <button
+                className={styles.applyFilt3}
+                onClick={() => validateFilters() && applyFilters()}
+              >
+                არჩევა
+              </button>
+            </div>
+          </div>
 
-      {/* Number of Bedrooms */}
-      <div>
-        <label>Bedrooms:</label>
-        <input
-          type="number"
-          placeholder="Number of bedrooms"
-          value={bedrooms}
-          onChange={handleBedroomsChange}
-        />
-      </div>
-      <button onClick={() => validateFilters() && applyFilters()}>
-        Apply Filters
-      </button>
+          {/* Area Range */}
+          <div className={styles.filterDropdown}>
+            <label>ფართობი</label>
+            <div className={styles.filterDropdownContent3}>
+              <input
+                type="number"
+                name="min"
+                placeholder="Min"
+                value={areaRange.min}
+                onChange={handleAreaChange}
+              />
+              <input
+                type="number"
+                name="max"
+                placeholder="Max"
+                value={areaRange.max}
+                onChange={handleAreaChange}
+              />
+              {validationMessage && (
+                <p style={{ color: "red" }}>{validationMessage}</p>
+              )}
+              <button
+                className={styles.applyFilt3}
+                onClick={() => validateFilters() && applyFilters()}
+              >
+                არჩევა
+              </button>
+            </div>
+          </div>
 
-      <div>
-        <Link to="/new-listing" className={styles.noTextDecoration}><button className={styles.listingAdd}>+ Add New Listing</button></Link>
-        
-        <button onClick={handleAddClick} className={styles.agentAdd}>+ Add Agent</button>
-        <AgentModal
-          isOpen={isModalOpen}
-          onRequestClose={handleModalClose}
-          onConfirm={handleAddConfirm}
-        />
+          {/* Number of Bedrooms */}
+          <div className={styles.filterDropdown}>
+            <label>საძინებლების რაოდენობა</label>
+            <div className={styles.filterDropdownContent2}>
+              <input
+                type="number"
+                placeholder="1"
+                value={bedrooms}
+                onChange={handleBedroomsChange}
+                min="1"
+                step="1"
+                onKeyDown={(e) => {
+                  if (e.key === "." || e.key === "-" || e.key === "e") {
+                    e.preventDefault(); // Prevents typing decimals, negative numbers, and scientific notation
+                  }
+                }}
+                pattern="\d*"
+              />
+              <button
+                className={styles.applyFilt2}
+                onClick={() => validateFilters() && applyFilters()}
+              >
+                არჩევა
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.topContainerButtons}>
+          <Link to="/new-listing" className={styles.noTextDecoration}>
+            <button className={styles.listingAdd}>+ Add New Listing</button>
+          </Link>
+
+          <button onClick={handleAddClick} className={styles.agentAdd}>
+            + Add Agent
+          </button>
+          <AgentModal
+            isOpen={isModalOpen}
+            onRequestClose={handleModalClose}
+            onConfirm={handleAddConfirm}
+          />
+        </div>
+      </div>
+      <div className={styles.chosenFilters}>
+        {regions
+          .filter((region) => selectedRegions.includes(region.id)) // Filter regions based on selected IDs
+          .map((filteredRegion) => (
+            <div>
+              <span key={filteredRegion.id}>
+                {filteredRegion.name} {/* Display the region name */}
+              </span>
+              <button onClick={() => handleRemoveRegion(filteredRegion.id)}>
+                X
+              </button>
+            </div>
+          ))}
+        {priceRange.min || priceRange.max ? (
+          <div>
+            {priceRange.min} ₾ - {priceRange.max} ₾{" "}
+            <button onClick={handleRemovePriceRange}>X</button>
+          </div>
+        ) : null}
+        {areaRange.min || areaRange.max ? (
+        <div>
+          {areaRange.min} მ<sup>2</sup> - {areaRange.max} მ<sup>2</sup>{" "}
+          <button onClick={handleRemoveAreaRange}>X</button>
+        </div>
+         ) : null}
+         {bedrooms ? (
+        <div>
+          {bedrooms} <button onClick={handleRemoveBedrooms}>X</button>
+        </div>
+      ) : null}
       </div>
       <div className={styles.content}>
-        {filteredListings.map((property) => (
-          <PropertyCard
-            key={property.id}
-            id={property.id}
-            image={property.image}
-            address={property.address}
-            city={property.city}
-            zipCode={property.zip_code}
-            price={property.price}
-            area={property.area}
-            bedrooms={property.bedrooms}
-            isRental={property.is_rental}
-          />
-        ))}
+        {filteredListings.length != 0 ? (
+          filteredListings.map((property) => (
+            <PropertyCard
+              key={property.id}
+              id={property.id}
+              image={property.image}
+              address={property.address}
+              city={property.city}
+              zipCode={property.zip_code}
+              price={property.price}
+              area={property.area}
+              bedrooms={property.bedrooms}
+              isRental={property.is_rental}
+            />
+          ))
+        ) : (
+          <p className={styles.noPropertiesFound}>
+            აღნიშნული მონაცემებით განცხადება არ იძებნება
+          </p>
+        )}
       </div>
     </div>
   );
