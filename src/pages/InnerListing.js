@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import API from "../api/api";
+import Slider from 'react-slick';
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
 import PropertyCard from "../components/PropertyCard";
 import DeleteModal from "../components/DeleteModal";
 import styles from "./innerListing.module.css";
@@ -19,6 +22,32 @@ function InnerListing() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const navigate = useNavigate();
+
+  const settings = {
+    dots: true, // Shows dots below the carousel
+    infinite: true, // Infinite scrolling
+    speed: 500, // Transition speed
+    slidesToShow: 4, // Number of slides to show at once
+    slidesToScroll: 1, // Number of slides to scroll at once
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          dots: true,
+        },
+      },
+    ],
+  };
 
   useEffect(() => {
     const fetchListings = async () => {
@@ -152,7 +181,8 @@ function InnerListing() {
       <div className={styles.carruselDiv}>
         <h2>ბინები მსგავს ლოკაციაზე</h2>
         {similarListings.length > 0 ? (
-          similarListings.map((property) => (
+          <Slider {...settings}>
+          {similarListings.map((property) => (
             <PropertyCard
               key={property.id}
               id={property.id}
@@ -165,7 +195,8 @@ function InnerListing() {
               bedrooms={property.bedrooms}
               isRental={property.is_rental}
             />
-          ))
+          ))}
+          </Slider>
         ) : (
           <p>მსგავს ლოკაციაზე ბინები ვერ მოიძებნა.</p>
         )}
