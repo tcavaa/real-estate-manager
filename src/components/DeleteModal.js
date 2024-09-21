@@ -4,15 +4,14 @@ import { useNavigate } from "react-router-dom";
 import API from "../api/api";
 import styles from "./DeleteModal.module.css";
 
-Modal.setAppElement("#root"); // This is important for accessibility
-
+Modal.setAppElement("#root");
 const DeleteModal = ({ isOpen, onRequestClose, onConfirm, id }) => {
   const navigate = useNavigate();
 
   const handleConfirm = async () => {
     try {
       console.log(id);
-      await API.deleteListing(id); // Replace with actual delete API call
+      await API.deleteListing(id);
       onConfirm(); // Notify parent to handle redirect or other actions
       navigate("/"); // Redirect to the home page after deletion
     } catch (error) {
@@ -30,8 +29,12 @@ const DeleteModal = ({ isOpen, onRequestClose, onConfirm, id }) => {
     >
       <p className={styles.modalP}>გსურთ წაშალოთ ლისტინგი?</p>
       <div className={styles.modalDiv}>
-        <button className={styles.modalcancel} onClick={onRequestClose}>გაუქმება</button>
-        <button className={styles.modalok} onClick={handleConfirm}>დადასტურება</button>
+        <button className={styles.modalcancel} onClick={onRequestClose}>
+          გაუქმება
+        </button>
+        <button className={styles.modalok} onClick={handleConfirm}>
+          დადასტურება
+        </button>
       </div>
     </Modal>
   );

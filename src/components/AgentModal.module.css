@@ -1,0 +1,147 @@
+/* Style for the overlay to blur the background */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent dark background */
+    backdrop-filter: blur(5px); /* Blur effect */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Style for the modal content */
+  .modal {
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 5px 5px 12px 0px #02152614;
+    width: 800px;
+    height: 610px;
+    position: relative;
+    padding:87px 105px;
+  }
+  .modalP {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: center;
+    color:#2D3648;
+    margin-top:58px
+  }
+  .modalDiv {
+    display: flex;
+    justify-content: center;
+  }
+  
+  /* Style for the buttons */
+  /* Buttons */
+  .modalcancel {
+    background-color: #fff;
+    color: #F93B1D;
+    padding: 10px 16px;
+    font-size: 16px;
+    border: 1px solid #F93B1D;
+    border-radius: 10px;
+    cursor: pointer;
+    display: block;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+    margin-right: 15px;
+  }
+  
+  /* Button hover effect */
+  .modalcancel:hover {
+    background-color: #ff3333;
+    color: #fff;
+  }
+
+  /* Buttons */
+  .modalok {
+    background-color: #F93B1D;
+    color: #fff;
+    padding: 10px 16px;
+    font-size: 16px;
+    border: 1px solid #F93B1D ;
+    border-radius: 10px;
+    cursor: pointer;
+    display: block;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+  }
+  
+  /* Button hover effect */
+  .modalok:hover {
+    background-color: #fff;
+    color:#F93B1D;
+  }
+  .agentModalContent h2{
+    text-align:center;
+    color:#021526;
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 38.4px;
+  }
+  .formGroups {
+    width:385px;
+    margin-top:10px;
+  }
+  .formGroups input, .formGroups select  {
+    margin-top:5px;
+  }
+  .formGroups p {
+    padding:0;
+    margin:0;
+    font-size:12px;
+  }
+  .fileUpload {
+    margin-top:20px;
+  }
+  .agentAddForm input[type="file"] {
+    margin-top:15px;
+    border:1px dashed #2D3648;
+    width: 100%;
+    height:120px;
+    border-radius: 6px;
+    padding: 12px;
+    box-sizing: border-box;
+  }
+  .agentAddForm input[type="text"], .agentAddForm input[type="email"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #808A93;
+    border-radius: 6px;
+    font-size: 16px;
+    box-sizing: border-box;
+  }
+  .formFlex {
+    display:flex;
+    justify-content: space-between;
+  }
+  .formlabels {
+    font-size:14px;
+    font-weight: bold;
+    color:#021526;
+    padding-bottom:15px;
+  }
+  .buttonsAgent {
+    float:right;
+    display: flex;
+    margin-top: 94px;
+  }
+  .invalid {
+    border:1px solid red !important;
+  }
+  
+  .valid {
+    border-color: green !important;
+  }
+  .invalidp {
+    color:red !important;
+  }
+  .validp {
+    color: green !important;
+  }

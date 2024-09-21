@@ -1,25 +1,64 @@
 import React, { useState } from "react";
 import API from "../api/api";
+import styles from "./AgentModal.module.css";
+import Modal from "react-modal";
 
-function AgentModal({ isOpen, onClose }) {
+Modal.setAppElement("#root");
+
+function AgentModal({ isOpen, onRequestClose, onConfirm }) {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
   const [avatar, setAvatar] = useState(null);
   const [phone, setPhone] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [isNameValid, setIsNameValid] = useState();
+  const [isSurnameValid, setIsSurnameValid] = useState();
+  const [isEmailValid, setIsEmailValid] = useState();
+  const [isPhoneValid, setIsPhoneValid] = useState();
+  const [isAvatarValid, setIsAvatarValid] = useState();
 
   const validateFields = () => {
-    if (name.length < 2) return "Name must be at least 2 characters long.";
-    if (surname.length < 2)
-      return "Surname must be at least 2 characters long.";
-    if (!email.endsWith("@redberry.ge"))
-      return "Email must end with @redberry.ge.";
-    if (!avatar) return "Avatar is required.";
-    if (!/^[5]\d{8}$/.test(phone))
-      return "Phone number must be in the format 5XXXXXXXXX.";
-    return "";
+    let error = "";
+
+    if (name.length < 2) {
+      setIsNameValid(false);
+      error = "Name must be at least 2 characters long.";
+    } else {
+      setIsNameValid(true);
+    }
+
+    if (surname.length < 2) {
+      setIsSurnameValid(false);
+      error = "Surname must be at least 2 characters long.";
+    } else {
+      setIsSurnameValid(true);
+    }
+
+    if (!email.endsWith("@redberry.ge")) {
+      setIsEmailValid(false);
+      error = "Email must end with @redberry.ge.";
+    } else {
+      setIsEmailValid(true);
+    }
+
+    if (!avatar) {
+      setIsAvatarValid(false);
+      error = "Avatar is required.";
+    } else {
+      setIsAvatarValid(true);
+    }
+
+    if (!/^[5]\d{8}$/.test(phone)) {
+      setIsPhoneValid(false);
+      error = "Phone number must be in the format 5XXXXXXXXX.";
+    } else {
+      setIsPhoneValid(true);
+    }
+
+    return error;
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const error = validateFields();
@@ -38,15 +77,19 @@ function AgentModal({ isOpen, onClose }) {
         phone,
         avatar,
       });
-      console.log("Agent added:", response);
 
       // Close the modal and reset fields
-      onClose();
+      onConfirm();
       setName("");
       setSurname("");
       setEmail("");
       setAvatar(null);
       setPhone("");
+      setIsNameValid();
+      setIsSurnameValid();
+      setIsEmailValid();
+      setIsPhoneValid();
+      setIsAvatarValid();
     } catch (error) {
       setErrorMessage("Failed to add agent. Please try again.");
     }
@@ -60,61 +103,157 @@ function AgentModal({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   return (
-    <div className="modal">
-      <div className="modal-content">
-        <h2>Add Agent</h2>
-        <form onSubmit={handleSubmit}>
-          {/* Name */}
-          <label>Name:</label>
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={onRequestClose}
+      contentLabel="Confirm Deletion"
+      className={styles.modal}
+      overlayClassName={styles.overlay}
+    >
+      <div>
+        <div className={styles.agentModalContent}>
+          <h2>აგენტის დამატება</h2>
+          <form className={styles.agentAddForm} onSubmit={handleSubmit}>
+            <div className={styles.formFlex}>
+              <div className={styles.formGroups}>
+                <label className={styles.formlabels}>სახელი *</label>
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                  className={`${
+                    isNameValid === undefined
+                      ? ""
+                      : isNameValid
+                      ? styles.valid
+                      : styles.invalid
+                  }`}
+                />
+                <p
+                  className={`${
+                    isNameValid === undefined
+                      ? ""
+                      : isNameValid
+                      ? styles.validp
+                      : styles.invalidp
+                  }`}
+                >
+                  ✔️ მინიმუმ ორი სიმბოლო
+                </p>
+              </div>
+              <div className={styles.formGroups}>
+                <label className={styles.formlabels}>გვარი</label>
+                <input
+                  type="text"
+                  value={surname}
+                  onChange={(e) => setSurname(e.target.value)}
+                  required
+                  className={`${
+                    isSurnameValid === undefined
+                      ? ""
+                      : isSurnameValid
+                      ? styles.valid
+                      : styles.invalid
+                  }`}
+                />
+                <p
+                  className={`${
+                    isSurnameValid === undefined
+                      ? ""
+                      : isSurnameValid
+                      ? styles.validp
+                      : styles.invalidp
+                  }`}
+                >
+                  ✔️ მინიმუმ ორი სიმბოლო
+                </p>
+              </div>
+            </div>
+            <div className={styles.formFlex}>
+              <div className={styles.formGroups}>
+                <label className={styles.formlabels}>ელ-ფოსტა*</label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className={`${
+                    isEmailValid === undefined
+                      ? ""
+                      : isEmailValid
+                      ? styles.valid
+                      : styles.invalid
+                  }`}
+                />
+                <p
+                  className={`${
+                    isEmailValid === undefined
+                      ? ""
+                      : isEmailValid
+                      ? styles.validp
+                      : styles.invalidp
+                  }`}
+                >
+                  ✔️ გამოიყენეთ @Redberry.ge ფოსტა
+                </p>
+              </div>
+              <div className={styles.formGroups}>
+                <label className={styles.formlabels}>ტელეფონის ნომერი</label>
+                <input
+                  type="text"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  required
+                  className={`${
+                    isPhoneValid === undefined
+                      ? ""
+                      : isPhoneValid
+                      ? styles.valid
+                      : styles.invalid
+                  }`}
+                />
+                <p
+                  className={`${
+                    isPhoneValid === undefined
+                      ? ""
+                      : isPhoneValid
+                      ? styles.validp
+                      : styles.invalidp
+                  }`}
+                >
+                  ✔️ მხოლოდ რიცხვები
+                </p>
+              </div>
+            </div>
+            <div className={styles.fileUpload}>
+              <label className={styles.formlabels}>ატვირთეთ ფოტო *</label>
+              <input
+                type="file"
+                onChange={handleFileUpload}
+                required
+                className={`${
+                  isAvatarValid === undefined
+                    ? ""
+                    : isAvatarValid
+                    ? styles.valid
+                    : styles.invalid
+                }`}
+              />
+            </div>
 
-          {/* Surname */}
-          <label>Surname:</label>
-          <input
-            type="text"
-            value={surname}
-            onChange={(e) => setSurname(e.target.value)}
-            required
-          />
-
-          {/* Email */}
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-
-          {/* Avatar */}
-          <label>Avatar:</label>
-          <input type="file" onChange={handleFileUpload} required />
-
-          {/* Phone Number */}
-          <label>Phone Number:</label>
-          <input
-            type="text"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            required
-          />
-
-          {/* Error Message */}
-          {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-
-          {/* Buttons */}
-          <button type="submit">Save Agent</button>
-          <button type="button" onClick={onClose}>
-            Cancel
-          </button>
-        </form>
+            <div className={styles.buttonsAgent}>
+              <button className={styles.modalcancel} onClick={onRequestClose}>
+                გაუქმება
+              </button>
+              <button className={styles.modalok} onClick={handleSubmit}>
+                დადასტურება
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+    </Modal>
   );
 }
 

@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import API from "../api/api";
 import PropertyCard from "../components/PropertyCard";
 import AgentModal from "../components/AgentModal";
+import styles from "./ListingsPage.module.css";
 
 function ListingsPage() {
   const [listings, setListings] = useState([]);
@@ -164,9 +166,21 @@ function ListingsPage() {
   useEffect(() => {
     applyFilters();
   }, [listings, priceRange, areaRange, selectedRegions, bedrooms]);
+
+  const handleAddClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleAddConfirm = () => {
+    setIsModalOpen(false);
+    // Already handled in the DeleteModal component
+  };
   return (
     <div>
-      <h1>Real Estate Listings</h1>
       {error && <p style={{ color: "red" }}>{error}</p>}
       {validationMessage && <p style={{ color: "red" }}>{validationMessage}</p>}
 
@@ -239,28 +253,31 @@ function ListingsPage() {
       </button>
 
       <div>
-        <button onClick={() => setIsModalOpen(true)}>Add Agent</button>
+        <Link to="/new-listing" className={styles.noTextDecoration}><button className={styles.listingAdd}>+ Add New Listing</button></Link>
+        
+        <button onClick={handleAddClick} className={styles.agentAdd}>+ Add Agent</button>
         <AgentModal
           isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
+          onRequestClose={handleModalClose}
+          onConfirm={handleAddConfirm}
         />
       </div>
-
-      {/* Display Filtered Listings */}
-      {filteredListings.map((property) => (
-        <PropertyCard
-          key={property.id}
-          id={property.id}
-          image={property.image}
-          address={property.address}
-          city={property.city}
-          zipCode={property.zip_code}
-          price={property.price}
-          area={property.area}
-          bedrooms={property.bedrooms}
-          isRental={property.is_rental}
-        />
-      ))}
+      <div className={styles.content}>
+        {filteredListings.map((property) => (
+          <PropertyCard
+            key={property.id}
+            id={property.id}
+            image={property.image}
+            address={property.address}
+            city={property.city}
+            zipCode={property.zip_code}
+            price={property.price}
+            area={property.area}
+            bedrooms={property.bedrooms}
+            isRental={property.is_rental}
+          />
+        ))}
+      </div>
     </div>
   );
 }

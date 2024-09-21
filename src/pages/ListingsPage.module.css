@@ -1,0 +1,48 @@
+.content {
+    width:1591px;
+    margin:0 auto;
+}
+/* Buttons */
+.agentAdd {
+    background-color: #fff;
+    color: #F93B1D;
+    padding: 10px 16px;
+    font-size: 16px;
+    border: 1px solid #F93B1D;
+    border-radius: 10px;
+    cursor: pointer;
+    display: block;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+  }
+  
+  /* Button hover effect */
+  .agentAdd:hover {
+    background-color: #ff3333;
+    color: #fff;
+  }
+
+  /* Buttons */
+  .listingAdd {
+    background-color: #F93B1D;
+    color: #fff;
+    padding: 10px 16px;
+    font-size: 16px;
+    border: 1px solid #F93B1D ;
+    border-radius: 10px;
+    cursor: pointer;
+    display: block;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+  }
+  
+  /* Button hover effect */
+  .listingAdd:hover {
+    background-color: #fff;
+    color:#F93B1D;
+  }
+  .noTextDecoration {
+    text-decoration: none;
+  }
