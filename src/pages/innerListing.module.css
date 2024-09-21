@@ -1,0 +1,115 @@
+
+div.innerPageContainer {
+    width:1920px;
+    margin: 70px auto;
+}
+.innerCont {
+    display: flex;
+}
+.innerListingPicture {
+    width:840px;
+    position:relative;
+    margin-top:29px;
+}
+.innerListingPicture img{
+    width:839px;
+    height:640px;
+    border-radius: 15px;
+}
+.innerListingPicture p {
+    text-align:right;
+    color:#808A93;
+    font-size:16px;
+    margin-top:14px;
+}
+.innerListingPicture span {
+    color:#FFFFFF;
+    font-size:20px;
+    padding:8px 20px;
+    background-color: rgba(2, 21, 38, 0.5); /* 50% opacity */
+    position:absolute;
+    top:30px;
+    left:40px;
+    border-radius:20px;
+}
+.listingDetails {
+    margin-left:105px;
+}
+.listingDetails h1 {
+    font-weight:bold;
+    font-size:48px;
+    color:#021526;
+    margin:30px 0;
+}
+.listingDetails p {
+    font-size:24px;
+    color:#808A93;
+    margin-bottom:16px; 
+}
+.listingDetails img {
+    padding-right:5px;
+}
+.itemDesc {
+    color: #808A93;
+    line-height: 26px;
+    font-size:16px;
+    margin:40px 0 50px 0;
+}
+.agentinfo {
+    padding:25px 20px;
+    border:1px solid #DBDBDB;
+    border-radius: 8px;
+    width:500px;
+    margin-top:50px;
+}
+.agentImage {
+    display:flex;
+}
+.agentImage img {
+    width:72px;
+    height:72px;
+    border-radius: 100px;
+}
+.agentImage div h3{
+    font-size: 16px;
+    font-weight: 400;
+    margin:15px 0 0 14px;
+    color:#021526;
+}
+.agentImage div p {
+    font-size: 14px;
+    font-weight: 400;
+    color:#676E76;
+    margin:0 0 0 14px;
+
+}
+.agentDets {
+    margin-top:16px;
+}
+.agentDets p {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16.8px;
+    text-align: left;
+    color: #808A93;
+    margin:0 0 5px 5px;
+}
+.dltLstng {
+    color: #676E76;
+    border: 1px solid #676E76;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 14.4px;
+    text-align: center;
+    padding:10px;
+    border-radius: 8px;
+    background:none;
+    transition: ease 0.3s;
+    margin-top:20px;
+    cursor: pointer;
+}
+.dltLstng:hover {
+    background-color:#676E76;
+    color:white;
+    transition: ease 0.3s;
+}

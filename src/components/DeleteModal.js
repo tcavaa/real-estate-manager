@@ -2,6 +2,7 @@ import React from "react";
 import Modal from "react-modal";
 import { useNavigate } from "react-router-dom";
 import API from "../api/api";
+import styles from "./DeleteModal.module.css";
 
 Modal.setAppElement("#root"); // This is important for accessibility
 
@@ -24,13 +25,14 @@ const DeleteModal = ({ isOpen, onRequestClose, onConfirm, id }) => {
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       contentLabel="Confirm Deletion"
-      className="modal"
-      overlayClassName="overlay"
+      className={styles.modal}
+      overlayClassName={styles.overlay}
     >
-      <h2>Confirm Deletion</h2>
-      <p>Are you sure you want to delete this listing?</p>
-      <button onClick={onRequestClose}>Cancel</button>
-      <button onClick={handleConfirm}>Confirm</button>
+      <p className={styles.modalP}>გსურთ წაშალოთ ლისტინგი?</p>
+      <div className={styles.modalDiv}>
+        <button className={styles.modalcancel} onClick={onRequestClose}>გაუქმება</button>
+        <button className={styles.modalok} onClick={handleConfirm}>დადასტურება</button>
+      </div>
     </Modal>
   );
 };

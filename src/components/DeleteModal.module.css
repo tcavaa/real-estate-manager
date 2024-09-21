@@ -1,0 +1,80 @@
+/* Style for the overlay to blur the background */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent dark background */
+    backdrop-filter: blur(5px); /* Blur effect */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Style for the modal content */
+  .modal {
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 5px 5px 12px 0px #02152614;
+    width: 623px;
+    height: 222px;
+    position: relative;
+  }
+  .modalP {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: center;
+    color:#2D3648;
+    margin-top:58px
+  }
+  .modalDiv {
+    display: flex;
+    justify-content: center;
+  }
+  
+  /* Style for the buttons */
+  /* Buttons */
+  .modalcancel {
+    background-color: #fff;
+    color: #F93B1D;
+    padding: 10px 16px;
+    font-size: 16px;
+    border: 1px solid #F93B1D;
+    border-radius: 10px;
+    cursor: pointer;
+    display: block;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+    margin-right: 15px;
+  }
+  
+  /* Button hover effect */
+  .modalcancel:hover {
+    background-color: #ff3333;
+    color: #fff;
+  }
+
+  /* Buttons */
+  .modalok {
+    background-color: #F93B1D;
+    color: #fff;
+    padding: 10px 16px;
+    font-size: 16px;
+    border: 1px solid #F93B1D ;
+    border-radius: 10px;
+    cursor: pointer;
+    display: block;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+  }
+  
+  /* Button hover effect */
+  .modalok:hover {
+    background-color: #fff;
+    color:#F93B1D;
+  }
+  

@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import API from "../api/api";
 import PropertyCard from "../components/PropertyCard";
 import DeleteModal from "../components/DeleteModal";
+import styles from "./innerListing.module.css";
+import Backi from "../icons/back.png";
+import Areai from "../icons/area.png";
+import Bedroomi from "../icons/bedroom.png";
+import Locationi from "../icons/location.png";
+import Maili from "../icons/mail.png";
+import Phonei from "../icons/phone.png";
+import Postali from "../icons/postal.png";
 
 function InnerListing() {
   const { id } = useParams();
@@ -60,56 +68,89 @@ function InnerListing() {
     setIsModalOpen(false);
     // Already handled in the DeleteModal component
   };
+  const date = new Date(item.created_at);
+
+  // Format the date to dd/mm/yy
+  const formattedDate = date.toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "2-digit",
+  });
+  let isRental = "";
+  if (item.is_rental == 0) {
+    isRental = "იყიდება";
+  } else {
+    isRental = "ქირავდება";
+  }
 
   return (
     <>
-      <div className="listing-page">
-        <div className="listing-image">
-          <img src={`${item.image}`} alt="Listing Picture" />
-        </div>
-
-        <div className="listing-details">
-          <h2>Address: {item.address}</h2>
-          <p>City: {item.city.name}</p>
-          <p>ZIP Code: {item.zip_code}</p>
-
-          <p>Price: {item.price}</p>
-          <p>Area: {item.area}</p>
-          <p>Number of Bedrooms: {item.bedrooms}</p>
-
-          <p>Status: {item.is_rental}</p>
-
-          <div className="listing-description">
-            <h3>Description:</h3>
-            <p>{item.description}</p>
+      <div className={styles.innerPageContainer}>
+        <Link to="/">
+          <img src={Backi} />
+        </Link>
+        <div className={styles.innerCont}>
+          <div className={styles.innerListingPicture}>
+            <img src={`${item.image}`} />
+            <span>{isRental}</span>
+            <p>გამოქვეყნების თარიღი {formattedDate}</p>
           </div>
 
-          <p>Date of Publication: {item.created_at}</p>
-        </div>
+          <div className={styles.listingDetails}>
+            <h1>{item.price} ₾</h1>
+            <p>
+              <img src={Locationi} /> {item.city.name} {item.address}
+            </p>
+            <p>
+              <img src={Areai} />
+              ფართი {item.area} მ<sup>2</sup>
+            </p>
+            <p>
+              <img src={Bedroomi} />
+              საძინებელი {item.bedrooms}
+            </p>
+            <p>
+              <img src={Postali} />
+              საფოსტო ინდექსი {item.zip_code}
+            </p>
+            <p className={styles.itemDesc}>{item.description}</p>
+            <div className={styles.agentinfo}>
+              <div className={styles.agentImage}>
+                <img src={`${item.agent.avatar}`} alt="Agent Picture" />
+                <div>
+                  <h3>
+                    {item.agent.name} {item.agent.surname}
+                  </h3>
+                  <p>აგენტი</p>
+                </div>
+              </div>
+              <div className={styles.agentDets}>
+                <p>
+                  <img src={Maili} />
+                  {item.agent.email}
+                </p>
+                <p>
+                  <img src={Phonei} />
+                  {item.agent.phone}
+                </p>
+              </div>
+            </div>
 
-        <div className="agent-info">
-          <div className="agent-image">
-            <img src={`${item.agent.avatar}`} alt="Agent Picture" />
+            <button className={styles.dltLstng} onClick={handleDeleteClick}>
+              ლისტინგის წაშლა
+            </button>
+
+            <DeleteModal
+              isOpen={isModalOpen}
+              onRequestClose={handleModalClose}
+              onConfirm={handleDeleteConfirm}
+              id={item.id}
+            />
           </div>
-          <div className="agent-details">
-            <h3>Agent Name: {item.agent.name}</h3>
-            <p>Email: {item.agent.email}</p>
-            <p>Mobile Number: {item.agent.phone}</p>
-          </div>
-          <div>
-            {" "}
-            <button onClick={handleDeleteClick}>Delete Listing</button>
-          </div>
-          <DeleteModal
-            isOpen={isModalOpen}
-            onRequestClose={handleModalClose}
-            onConfirm={handleDeleteConfirm}
-            id={item.id}
-          />
         </div>
       </div>
       <div>
-        Simmilar Listings
+        <h2>ბინები მსგავს ლოკაციაზე</h2>
         {similarListings.length > 0 ? (
           similarListings.map((property) => (
             <PropertyCard
@@ -126,7 +167,7 @@ function InnerListing() {
             />
           ))
         ) : (
-          <p>No similar listings available.</p>
+          <p>მსგავს ლოკაციაზე ბინები ვერ მოიძებნა.</p>
         )}
       </div>
     </>
